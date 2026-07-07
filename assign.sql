@@ -101,7 +101,7 @@ select match_id, fixture, base_ticket_price from matches
 where tournament_category = 'Champions League' and match_status = 'Available'
 
 -- q2 
-select * from users
+select user_id,full_name,email from users
 where full_name Ilike 'Tanvir%' or full_name Ilike '%Haque'
 
 -- q3
@@ -109,7 +109,7 @@ select booking_id, user_id, match_id, coalesce(payment_status, 'Action Required'
 where payment_status is null
 
 -- q4
-select * from bookings
+
 select booking_id, full_name, fixture, total_cost from bookings as b
 join matches as m on m.match_id = b.match_id
 join users as u on u.user_id = b.user_id
@@ -123,3 +123,9 @@ full join users as u on u.user_id = b.user_id
 -- q6
 select booking_id, match_id,total_cost from bookings
 where total_cost > (select avg(total_cost) from bookings)
+
+
+-- q7
+select match_id,fixture,base_ticket_price from matches order by base_ticket_price desc offset 1 limit 2
+
+
